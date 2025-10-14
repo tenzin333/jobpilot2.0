@@ -13,7 +13,7 @@ export default async function getJobs(
     if (location) params.append("location", location);
 
     console.log("eeee",keyword)
-    const res = await fetch(`${process.env.BACKEND_API_URL}/jobs?${params.toString()}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs?${params.toString()}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
