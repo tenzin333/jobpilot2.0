@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 
 interface StatItemProps {
-    label: String;
+    label: string;
     count: number;
     total: number;
-    color: String;
+    color: string;
 }
 
 export default function StatItem({ label, count, total, color }: StatItemProps) {

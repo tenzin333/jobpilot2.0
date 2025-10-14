@@ -15,13 +15,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export type Application = {
-    id: String;
-    jobTitle: String;
-    company: String;
-    location: String;
-    appliedDate: String;
+    id: string;
+    jobTitle: string;
+    company: string;
+    location: string;
+    appliedDate: string;
     status: "pending" | "reviewing" | "interview" | "rejected" | "accepted";
-    salary: String;
+    salary: string;
 };
 
 const statusColors = {
@@ -79,7 +79,7 @@ export const columns: ColumnDef<Application>[] = [
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => {
-            const status = row.getValue("status") as String;
+            const status = row.getValue("status") as string;
             return (
                 <Badge className={statusColors[status as keyof typeof statusColors]}>
                     {status.charAt(0).toUpperCase() + status.slice(1)}

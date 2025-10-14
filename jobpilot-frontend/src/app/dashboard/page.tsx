@@ -11,8 +11,8 @@ import StatItem from '@/components/stats-item';
 
 interface NavItemProps {
     icon: React.ReactNode;
-    label: String;
-    href?: String;
+    label: string;
+    href?: string;
     onClick?: () => void;
     isCollapsed?: boolean;
 }
