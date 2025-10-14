@@ -1,8 +1,6 @@
 {
-  "projects": [
-    {
-      "src": "src/package.json",
-      "use": "@vercel/next"
-    }
+  "version": 2,
+  "builds": [
+    { "src": "next.config.ts", "use": "@vercel/next" }
   ]
 }
