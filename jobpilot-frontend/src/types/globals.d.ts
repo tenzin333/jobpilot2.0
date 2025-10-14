@@ -7,6 +7,6 @@ interface Job {
     salary: string,
     description: string,
     postedDate: string,
-    applicationsCount: Number,
+    applicationsCount: number,
     skills: string[]
 }
