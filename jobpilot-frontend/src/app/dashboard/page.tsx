@@ -1,21 +1,19 @@
 // src/app/dashboard/page.tsx
 import Dashboard from "./dashboard";
 import getJobs from "../api/job-actions";
+import { useSearchParams } from "next/navigation";
 
-interface DashboardPageProps {
-  searchParams: {
-    keyword?: string;
-    location?: string;
-    jobType?: string;
-  };
-}
-
-export default async function DashboardPage({ searchParams }: DashboardPageProps) {
-  // Extract query parameters from the searchParams prop
-  const keyword = searchParams.keyword ?? "";
-  const location = searchParams.location ?? "";
-  const jobType = searchParams.jobType ?? "";
-
+export default async function DashboardPage({
+  searchParams
+}:{
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}) {
+  // Extract query parameters
+   const currentSearchParams =  await searchParams;
+  const keyword = currentSearchParams["keyword"] ?? '';
+  const jobType = currentSearchParams["jobType"] ?? '';
+  const location = currentSearchParams["location"] ?? '';
+  
   // Fetch jobs on the server
   const jobs = await getJobs(keyword, jobType, location);
 
