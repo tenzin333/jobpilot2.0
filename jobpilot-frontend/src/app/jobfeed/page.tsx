@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { MapPin, DollarSign, Clock, Building2 } from "lucide-react";
 import getJobs from "../api/job-actions";
-import JobFeedClient from "@/app/jobfeed/jobfeed"; // We'll create this
+import JobFeedClient from "@/app/jobfeed/jobfeed";
 
 const locations = [
     { value: "any", label: "Any location" },
@@ -34,14 +34,15 @@ const jobTypes = [
 export default async function JobFeed({
     searchParams
 }: {
-    searchParams?: { keyword?: string; location?: string; jobType?: string }
+    searchParams: Promise<{ keyword?: string; location?: string; jobType?: string }>
 }) {
-    // Get current values from URL
-    const currentKeyword = searchParams?.keyword || '';
-    const currentLocation = searchParams?.location || '';
-    const currentJobType = searchParams?.jobType || '';
-    
-    const jobListings = await getJobs(currentKeyword, currentJobType, currentLocation);
+    // Await and get current values from URL
+    const currentSearchParams = await searchParams;
+    const keyword = currentSearchParams?.keyword ?? '';
+    const jobType = currentSearchParams?.jobType ?? '';
+    const location = currentSearchParams?.location ?? '';
+
+    const jobListings = await getJobs(keyword, jobType, location);
 
     return (
         <div className="p-4 md:p-8 pt-20 md:pt-8 space-y-6">
@@ -53,13 +54,13 @@ export default async function JobFeed({
             </div>
 
             {/* Pass to client component for interactive filters */}
-            <JobFeedClient 
+            <JobFeedClient
                 initialJobs={jobListings || []}
                 locations={locations}
                 jobTypes={jobTypes}
-                initialKeyword={currentKeyword}
-                initialLocation={currentLocation}
-                initialJobType={currentJobType}
+                initialKeyword={keyword}
+                initialLocation={location}
+                initialJobType={jobType}
             />
         </div>
     );

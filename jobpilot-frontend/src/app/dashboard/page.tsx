@@ -9,11 +9,11 @@ export default async function DashboardPage({
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
   // Extract query parameters
-   const currentSearchParams =  await searchParams;
+  const currentSearchParams =  await searchParams;
   const keyword = currentSearchParams["keyword"] ?? '';
   const jobType = currentSearchParams["jobType"] ?? '';
   const location = currentSearchParams["location"] ?? '';
-  
+
   // Fetch jobs on the server
   const jobs = await getJobs(keyword, jobType, location);
 
