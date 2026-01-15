@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\\\]]/g, '\\$&');
+
 const jobSchema = new mongoose.Schema({
   title: { type: String, required: true },
   company: { type: String },
@@ -33,18 +35,18 @@ jobSchema.statics.searchJobs = async function ({
 
   if (keyword) {
     filters.$or = [
-      { title: new RegExp(keyword, "i") },
-      { description: new RegExp(keyword, "i") },
-      { company: new RegExp(keyword, "i") },
+      { title: { $regex: escapeRegExp(keyword) } },
+      { description: { $regex: escapeRegExp(keyword) } },
+      { company: { $regex: escapeRegExp(keyword) } },
     ];
   }
 
   if (jobType && jobType !== "any") {
-    filters.jobType = new RegExp(jobType, "i");
+    filters.jobType = { $regex: escapeRegExp(jobType) };
   }
 
   if (location && location !== "any") {
-    filters.location = new RegExp(location, "i");
+    filters.location = { $regex: escapeRegExp(location) };
   }
 
   const minDate = new Date(Date.now() - maxAge);
